@@ -2,7 +2,6 @@ const axios = require('axios');
 const cheerio = require('cheerio');
 const createCsvWriter = require('csv-writer').createObjectCsvWriter;
 
-// Function to fetch and parse web pages
 async function fetchWebPage(url) {
     try {
         const { data } = await axios.get(url);
@@ -13,7 +12,6 @@ async function fetchWebPage(url) {
     }
 }
 
-// Function to scrape disease list and their detail URLs
 async function scrapeDiseaseList() {
     const baseURL = 'https://www.1mg.com';
     const url = `${baseURL}/all-diseases`;
@@ -32,7 +30,6 @@ async function scrapeDiseaseList() {
     return diseases;
 }
 
-// Function to scrape detailed information about a disease
 async function scrapeDiseaseDetails(diseaseURL) {
     const $ = await fetchWebPage(diseaseURL);
     if (!$) return null;
@@ -73,7 +70,6 @@ async function scrapeDiseaseDetails(diseaseURL) {
     return data;
 }
 
-// Function to write data to CSV file
 async function writeDataToCSV(data, filePath) {
     const csvWriter = createCsvWriter({
         path: filePath,
@@ -105,7 +101,6 @@ async function writeDataToCSV(data, filePath) {
     }
 }
 
-// Main function to run the web scraper
 async function main() {
     const diseases = await scrapeDiseaseList();
     let allDiseaseDetails = [];
